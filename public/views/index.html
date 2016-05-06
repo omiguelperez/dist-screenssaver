@@ -1,10 +1,15 @@
 {% extends "layout.html" %}
 
-{% block content %}
+{% block head %}
+	<link rel="stylesheet" href="/css/estilos.css">
+{% endblock %}
 
+{% block content %}
+  <img src="/img/imagen.png" id="esfera">
 {% endblock %}
 
 {% block scripts %}
 	<script src="/socket.io/socket.io.js"></script>
+	<script src="/js/jquery.min.js"></script>
   <script src="/js/app.js"></script>
 {% endblock %}

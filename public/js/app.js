@@ -2,8 +2,25 @@
 
 const socket = io()
 
-socket.emit('conectarse', {})
+let $esfera = $('#esfera')
 
-socket.on('respuesta', function (datos) {
-  console.log(datos)
+socket.emit('connected')
+
+socket.on('run', function(position) {
+	$esfera.css('display', 'block')
+	$esfera.css({
+		left: position.left,
+		top: position.top
+	})
+	$esfera.animate({ 
+		'left': '+=130%' 
+	}, { 
+		queue: false, 
+		duration: 5000,
+		complete: function() {
+			socket.emit('next', {
+				top: $esfera.css('top')
+			})
+		}
+	})
 })

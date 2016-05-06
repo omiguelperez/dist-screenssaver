@@ -1,0 +1,12 @@
+body {
+	overflow: hidden;
+}
+
+#esfera {
+	display: none;
+	height: 100px;
+	left: -100px;
+	position: absolute;
+	top: 50px;
+	width: 100px;
+}
