@@ -16,7 +16,7 @@ socket.on('run', function(position) {
 		'left': '+=130%'
 	}, {
 		queue: false,
-		duration: 5000,
+		duration: 2500,
 		complete: function() {
 			socket.emit('next', {
 				top: $esfera.css('top')

@@ -53,9 +53,8 @@ function onConnection(socket) {
     let current = _.find(sockets, function(o) {
       return o == socket
     })
-    let index = sockets.indexOf(current)
+    let index = aleatorio(0, sockets.length)
     if (sockets.length > 1) {
-      index++
       if (index === sockets.length) {
         index = 0
       }
@@ -74,9 +73,8 @@ function onConnection(socket) {
       return o == socket
     })
     if (socket == current) {
-      let index = sockets.indexOf(current)
+      let index = aleatorio(0, sockets.length)
       if (sockets.length > 1) {
-        index++
         if (index === sockets.length) {
           index = 0
         }
@@ -89,6 +87,7 @@ function onConnection(socket) {
         })
       }
     }
+    console.log(`Cliente desconectado: ${socket.id}`)
     sockets = _.without(sockets, socket)
   })
 }
@@ -98,3 +97,9 @@ function onListening() {
 }
 
 server.listen(port)
+
+// Generar numeros alatorios en rango de numeros
+function aleatorio(minimo, maximo) {
+  var numero = Math.floor(Math.random() * (maximo - minimo + 1) + minimo)
+  return numero
+}
