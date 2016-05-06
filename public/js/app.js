@@ -12,15 +12,16 @@ socket.on('run', function(position) {
 		left: position.left,
 		top: position.top
 	})
-	$esfera.animate({ 
-		'left': '+=130%' 
-	}, { 
-		queue: false, 
+	$esfera.animate({
+		'left': '+=130%'
+	}, {
+		queue: false,
 		duration: 5000,
 		complete: function() {
 			socket.emit('next', {
 				top: $esfera.css('top')
 			})
+      $esfera.css('display', 'none')
 		}
 	})
 })
