@@ -53,7 +53,7 @@ function onConnection(socket) {
     let current = _.find(sockets, function(o) {
       return o == socket
     })
-    let index = aleatorio(0, sockets.length)
+    let index = aleatorio(0, sockets.length -1)
     if (sockets.length > 1) {
       if (index === sockets.length) {
         index = 0
@@ -73,7 +73,9 @@ function onConnection(socket) {
       return o == socket
     })
     if (socket == current) {
-      let index = aleatorio(0, sockets.length)
+      console.log(`Cliente desconectado: ${socket.id}`)
+      sockets = _.without(sockets, socket)
+      let index = aleatorio(0, sockets.length - 1)
       if (sockets.length > 1) {
         if (index === sockets.length) {
           index = 0
@@ -87,8 +89,6 @@ function onConnection(socket) {
         })
       }
     }
-    console.log(`Cliente desconectado: ${socket.id}`)
-    sockets = _.without(sockets, socket)
   })
 }
 
