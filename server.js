@@ -62,13 +62,14 @@ function onConnection(socket) {
   socket.on('disconnect', function() {
     // console.log(`Cliente desconectado: ${socket.id}`)
     sockets = _.without(sockets, socket)
-    console.log(socket === currentSocket)
     if (socket == currentSocket) {
       let next = currentSocket = sockets[Math.floor(Math.random() * sockets.length)]
-      next.emit('run', {
-        left: '-100px',
-        top: '50px'
-      })
+      if (sockets.length) {
+        next.emit('run', {
+          left: '-100px',
+          top: '50px'
+        })
+      }
     }
   })
 }
