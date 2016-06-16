@@ -50,16 +50,7 @@ function onConnection(socket) {
 
   // Mostrar la pelota en el siguiente cliente
   socket.on('next', function(position) {
-    let current = _.find(sockets, function(o) {
-      return o == socket
-    })
-    let index = aleatorio(0, sockets.length -1)
-    if (sockets.length > 1) {
-      if (index === sockets.length) {
-        index = 0
-      }
-    }
-    let next = sockets[index]
+    let next = sockets[Math.floor(Math.random() * sockets.length)]
     currentSocket = next
     next.emit('run', {
       left: '-100px',
@@ -69,25 +60,15 @@ function onConnection(socket) {
 
   // Un cliente se ha desconectado
   socket.on('disconnect', function() {
-    let current = _.find(sockets, function(o) {
-      return o == socket
-    })
-    if (socket == current) {
-      console.log(`Cliente desconectado: ${socket.id}`)
-      sockets = _.without(sockets, socket)
-      let index = aleatorio(0, sockets.length - 1)
-      if (sockets.length > 1) {
-        if (index === sockets.length) {
-          index = 0
-        }
-      }
-      let next = sockets[index]
-      if (socket == currentSocket) {
-        next.emit('run', {
-          left: '-100px',
-          top: '50px'
-        })
-      }
+    // console.log(`Cliente desconectado: ${socket.id}`)
+    sockets = _.without(sockets, socket)
+    console.log(socket === currentSocket)
+    if (socket == currentSocket) {
+      let next = currentSocket = sockets[Math.floor(Math.random() * sockets.length)]
+      next.emit('run', {
+        left: '-100px',
+        top: '50px'
+      })
     }
   })
 }
@@ -97,9 +78,3 @@ function onListening() {
 }
 
 server.listen(port)
-
-// Generar numeros alatorios en rango de numeros
-function aleatorio(minimo, maximo) {
-  var numero = Math.floor(Math.random() * (maximo - minimo + 1) + minimo)
-  return numero
-}
